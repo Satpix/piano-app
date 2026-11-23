@@ -1,0 +1,131 @@
+.panel {
+  min-width: 0;
+  margin-top: 20px;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.header,
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.toggle {
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  color: var(--ink);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.controls {
+  margin-top: 18px;
+}
+
+.tempoControl {
+  display: grid;
+  flex: 1 1 200px;
+  gap: 8px;
+  max-width: 400px;
+}
+
+.tempoLabel {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.tempoLabel strong {
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.tempoControl input {
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.beats {
+  display: flex;
+  gap: 8px;
+}
+
+.beat {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.firstBeat {
+  border-style: double;
+  border-width: 3px;
+}
+
+.activeBeat {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 24%, var(--surface));
+  color: var(--ink);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent);
+  font-weight: 700;
+}
+
+.hint,
+.error {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.error {
+  color: var(--ink);
+}
+
+.panel :is(button, input):disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.panel :is(button, input):focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .panel {
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+
+  .tempoControl {
+    flex-basis: 100%;
+  }
+}
