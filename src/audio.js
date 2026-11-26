@@ -2,12 +2,15 @@ export function createPiano(volume, longRelease) {
   const context = new AudioContext()
   const master = context.createGain()
   const compressor = context.createDynamicsCompressor()
+  const recordingDestination = context.createMediaStreamDestination()
   const voices = new Map()
-  let releaseDuration = longRelease ? 0.8 : 0.18
+  // Unchecked keeps the previous soft release; checked adds a long piano-like tail.
+  let releaseDuration = longRelease ? 2.8 : 0.8
 
   master.gain.value = volume * 0.7
   master.connect(compressor)
   compressor.connect(context.destination)
+  compressor.connect(recordingDestination)
 
   function stop(source) {
     const voice = voices.get(source)
@@ -68,14 +71,18 @@ export function createPiano(volume, longRelease) {
     },
     stop,
     stopAll,
+    resume: () => context.resume(),
+    recordingStream: recordingDestination.stream,
+    getReleaseDuration: () => releaseDuration,
     setVolume(value) {
       master.gain.setTargetAtTime(value * 0.7, context.currentTime, 0.02)
     },
     setLongRelease(enabled) {
-      releaseDuration = enabled ? 0.8 : 0.18
+      releaseDuration = enabled ? 2.8 : 0.8
     },
     dispose() {
       stopAll()
+      recordingDestination.stream.getTracks().forEach((track) => track.stop())
       void context.close()
     },
   }

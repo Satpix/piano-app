@@ -7,8 +7,39 @@
 }
 
 .container {
-  width: min(100%, 1000px);
+  width: min(100%, 1400px);
   margin-inline: auto;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  align-items: start;
+  gap: 24px;
+}
+
+.playArea {
+  min-width: 0;
+}
+
+.keyExpected {
+  outline: 3px solid var(--accent);
+  outline-offset: -5px;
+}
+
+.keyExpected .keyBinding {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+@media (max-width: 1199px) {
+  .container {
+    max-width: 1000px;
+  }
+
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .header {
